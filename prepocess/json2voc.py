@@ -6,9 +6,9 @@ from lxml.etree import Element, SubElement, tostring, ElementTree
 from xml.dom.minidom import parseString
 import pickle
 
-json_path = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190809/Annotations/gt_result.json"
-output_dir = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190809/Label/Annotations"
-name_dict_path = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190809/Annotations/name.pickle"
+json_path = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190818/Annotations/anno_train.json"
+output_dir = "/home/junjie/Code/tianchi/guangdong/Label/Annotations/"
+name_dict_path = "/home/junjie/Code/tianchi/guangdong/Label/ImageSets/Main/name.pickle"
 
 
 height = 1000
@@ -52,13 +52,13 @@ for i,load_ann in enumerate(load_dict):
 
     node_bndbox = SubElement(node_object, 'bndbox')  
     node_xmin = SubElement(node_bndbox, 'xmin')  
-    node_xmin.text = str(load_ann["bbox"][0])  
+    node_xmin.text = str(int(load_ann["bbox"][0]))
     node_ymin = SubElement(node_bndbox, 'ymin')  
-    node_ymin.text = str(load_ann["bbox"][1])
+    node_ymin.text = str(int(load_ann["bbox"][1]))
     node_xmax = SubElement(node_bndbox, 'xmax')  
-    node_xmax.text = str(load_ann["bbox"][2])
+    node_xmax.text = str(int(load_ann["bbox"][2]))
     node_ymax = SubElement(node_bndbox, 'ymax')  
-    node_ymax.text = str(load_ann["bbox"][3])
+    node_ymax.text = str(int(load_ann["bbox"][3]))
 
     xml_dir=output_dir
     if not os.path.exists(xml_dir):

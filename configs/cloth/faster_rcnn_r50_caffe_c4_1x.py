@@ -2,7 +2,7 @@
 norm_cfg = dict(type='BN', requires_grad=False)
 model = dict(
     type='FasterRCNN',
-    pretrained='open-mmlab://resnet50_caffe',
+    pretrained='torchvision://resnet50',
     backbone=dict(
         type='ResNet',
         depth=50,
@@ -13,14 +13,14 @@ model = dict(
         frozen_stages=1,
         norm_cfg=norm_cfg,
         norm_eval=True,
-        style='caffe'),
+        style='pytorch'),
     shared_head=dict(
         type='ResLayer',
         depth=50,
         stage=3,
         stride=2,
         dilation=1,
-        style='caffe',
+        style='pytorch',
         norm_cfg=norm_cfg,
         norm_eval=True),
     rpn_head=dict(
@@ -44,8 +44,8 @@ model = dict(
         type='BBoxHead',
         with_avg_pool=True,
         roi_feat_size=7,
-        in_channels=1024,
-        num_classes=28,
+        in_channels=20,
+        num_classes=35,
         target_means=[0., 0., 0., 0.],
         target_stds=[0.1, 0.1, 0.2, 0.2],
         reg_class_agnostic=False,
@@ -101,15 +101,16 @@ test_cfg = dict(
         nms_thr=0.7,
         min_bbox_size=0),
     rcnn=dict(
-        score_thr=0.05, nms=dict(type='nms', iou_thr=0.5), max_per_img=100))
+        score_thr=0.0, nms=dict(type='nms', iou_thr=0.5), max_per_img=100))
 # dataset settings
 dataset_type = 'ClothDataset'
 data_root = 'data/cloth/'
 img_norm_cfg = dict(
-    mean=[102.9801, 115.9465, 122.7717], std=[1.0, 1.0, 1.0], to_rgb=False)
+    mean=[90.8820, 89.2971, 95.5343], std=[25.5697, 26.6555, 26.7042], to_rgb=False)
+
 data = dict(
-    imgs_per_gpu=2,
-    workers_per_gpu=2,
+    imgs_per_gpu=1,
+    workers_per_gpu=0,
     train=dict(
         type=dataset_type,
         ann_file=data_root + 'ImageSets/Main/train.txt',
@@ -134,7 +135,7 @@ data = dict(
         with_label=True),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'ImageSets/Main/test.txt',
+        ann_file=data_root + 'ImageSets/Main/val.txt',
         img_prefix=data_root ,
         img_scale=(1000, 2446),
         img_norm_cfg=img_norm_cfg,

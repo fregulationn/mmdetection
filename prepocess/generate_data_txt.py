@@ -1,8 +1,8 @@
 import os
 
 
-image_dir = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190809/Label/JPEGImages"
-out_dir = "/home/junjie/Code/tianchi/guangdong/guangdong1_round1_train1_20190809/Label/ImageSets/Main/"
+image_dir = "/home/junjie/Code/tianchi/guangdong/Label/JPEGImages"
+out_dir = "/home/junjie/Code/tianchi/guangdong/Label/ImageSets/Main/"
 train_name = 'train.txt'
 val_name = 'val.txt'
 train_val_name = 'train_val.txt'
